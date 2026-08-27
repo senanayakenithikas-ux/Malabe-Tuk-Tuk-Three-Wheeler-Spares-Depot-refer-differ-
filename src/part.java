@@ -1,4 +1,4 @@
-public class part {
+public class Part {
     private String partCode;
     private String name;
     private String brand;
@@ -9,7 +9,7 @@ public class part {
     private String imageFile;
     private int threshold;
 
-    public part(String partCode, String name,String brand, double price, int quantity, String category, String dateAdded, String imageFile, int threshold){
+    public Part(String partCode, String name, String brand, double price, int quantity, String category, String dateAdded, String imageFile, int threshold){
         this.partCode = partCode;
         this.name = name;
         this.brand = brand;
