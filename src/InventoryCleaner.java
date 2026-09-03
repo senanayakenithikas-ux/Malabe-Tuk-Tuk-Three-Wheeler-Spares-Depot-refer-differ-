@@ -93,7 +93,49 @@ public class InventoryCleaner {
         String cleaned = field.trim();
         cleaned = cleaned.replace("Rs.","").replace("Rs", "").replace("rs", "").trim();
         try {
-            return Double.parse
+            return Double.parseDouble(cleaned);
+        }catch (Exception e){
+            return 0.0;
+        }
+    }
 
-        }    }
+    private int cleanQuantity(String field){
+        try{
+            int quantity = Integer.parseInt(field.trim());
+            if (quantity<0){
+                return 0;
+            }
+            return quantity;
+        } catch (Exception e){
+            return 0;
+        }
+    }
+
+    private String cleanCategory(String field){
+        String trimmed = field.trim();
+        if(trimmed.isEmpty()){
+            return "No category";
+        }
+        String lower = trimmed.toLowerCase();
+        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+    }
+
+    private String cleanDate(String field){
+        String trimmed = field.trim();
+        String[] patterns = {"dd/MM/yyyy", "yyyy-MM-dd", "yyyy/MM/dd", "MMM dd, yyyy", "dd-MM-yyyy"};
+
+        for (String pattern : patterns){
+            try{
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
+                sdf.setLenient(false);
+                Date parsed = sdf.parse(trimmed);
+                java.text.SimpleDateFormat output = new java.text.SimpleDateFormat("dd-MM-yyyy");
+                return output.format(parsed);
+            } catch (Exception e){
+                continue;
+            }
+        }
+        return "N0 date";
+    }
+
 }
